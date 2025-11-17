@@ -1,0 +1,13 @@
+# Robots.txt pour Ducartel
+# Permet à tous les bots de crawler le site
+
+User-agent: *
+Allow: /
+Disallow: /assets/
+
+# Sitemap
+Sitemap: https://www.ducartel.com/sitemap.xml
+
+# Crawler delays
+Crawl-delay: 1
+

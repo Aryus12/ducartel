@@ -1,0 +1,56 @@
+# Ducartel - .htaccess Configuration
+# Optimisation pour SEO et Performance
+
+# Activer la compression GZIP
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Mise en cache du navigateur
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+    ExpiresByType text/html "access plus 1 hour"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+</IfModule>
+
+# Désactiver la mise en cache pour les fichiers HTML
+<IfModule mod_headers.c>
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "max-age=3600, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+# Redirection HTTPS (si applicable)
+# Décommenter si votre serveur supporte HTTPS
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+# Réécriture d'URL pour les fichiers HTML
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Redirection des fichiers .html vers leur version sans extension
+    # RewriteCond %{REQUEST_FILENAME} !-f
+    # RewriteCond %{REQUEST_FILENAME} !-d
+    # RewriteRule ^([^\.]+)$ $1.html [NC,L]
+</IfModule>
+
+# Sécurité : Désactiver la listage des répertoires
+Options -Indexes
+
+# Ajouter des en-têtes de sécurité
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
